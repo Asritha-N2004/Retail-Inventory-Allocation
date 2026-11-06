@@ -1,0 +1,9 @@
+# Optimization and forecasting
+
+For every feasible product/source/destination edge, integer x ≥ 0 denotes units assigned. Source upper bound is max(0, on_hand − reserved − safety). Destination need is ceil(forecast + safety − available), floored at zero. Shared destination capacity is min(storage remaining across all products, fulfillment capacity). Constraints enforce source totals, per-product destination need and aggregate location capacity.
+
+The variable objective is Σ x(transport + reallocation + holding − channel-weighted shortage penalty). The baseline shortage penalty is added for reporting. Transport uses a configurable-coordinate distance proxy with fixed per-unit costs; no live routes are claimed. Channel priority weights avoided shortages. SciPy/HiGHS MILP uses integer quantities; on solver failure, a stable benefit-ranked greedy transportation algorithm respects the same bounds. No OR-Tools dependency is needed: SciPy is the working integer optimization alternative.
+
+Remaining unmet need explicitly includes demand and safety requirements. Safety is protected at supply sources; destination safety is restored where feasible. Approval repeats live source and aggregate capacity validation. Holding cost is a per-unit planning-horizon proxy rather than a full multistage inventory model. Savings are modeled avoided shortage penalties less proposed operational cost, not measured revenue.
+
+Moving average, exponential smoothing, linear regression and seeded random forest use up to 90 trailing daily observations. Less than seven observations uses a conservative mean/default fallback. Seven-day holdout aggregate error produces WAPE/MAE. Bounds use 1.96 × historical daily standard deviation × sqrt(horizon), clipped at zero. Independent normal demand assumptions limit their statistical interpretation.

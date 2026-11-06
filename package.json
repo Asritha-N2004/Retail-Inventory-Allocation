@@ -1,0 +1,6 @@
+{
+  "name": "nexus-retail-deployment",
+  "private": true,
+  "scripts": {"build": "npm --prefix frontend ci && npm --prefix frontend run build"},
+  "engines": {"node": "22.x"}
+}

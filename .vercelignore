@@ -1,0 +1,17 @@
+.git
+.venv
+.tools
+.vercel
+.env*
+*.log
+**/__pycache__
+**/.pytest_cache
+**/*.db
+**/*.db-*
+**/*.tsbuildinfo
+frontend/node_modules
+frontend/dist
+frontend/src/**/*.test.*
+frontend/src/test-setup.ts
+backend/tests
+docs/screenshots
